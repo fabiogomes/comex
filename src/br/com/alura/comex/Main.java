@@ -17,6 +17,14 @@ public class Main {
 
 		mostraRelatorioComNomeDosClientesComList(pedidos);
 		mostraNumeroDePedidos(pedidos);
+		mostraPrimeiroEUltimoPedidos(pedidos);
+	}
+
+	private static void mostraPrimeiroEUltimoPedidos(List<Pedido> pedidos) {
+		System.out.println("==================================");
+		System.out.println("Primeiro pedido: " + pedidos.get(0));
+		System.out.println("Último pedido: " + pedidos.get(pedidos.size() - 1));
+		System.out.println("==================================");
 	}
 
 	private static void mostraNumeroDePedidos(List<Pedido> pedidos) {
