@@ -20,6 +20,21 @@ public class Main {
 		mostraNumeroDePedidos(pedidos);
 		mostraPrimeiroEUltimoPedidos(pedidos);
 		mostraListaComSomenteNomeDosClientes(pedidos);
+		mostraListaOrdenadaDosPrecos(pedidos);
+	}
+
+	private static void mostraListaOrdenadaDosPrecos(List<Pedido> pedidos) {
+		PrecoPedidoComparator ordenarPorPreco = new PrecoPedidoComparator();
+		
+		pedidos.sort(ordenarPorPreco);
+		
+		System.out.println("*************************");
+		System.out.println("Lista ordenada dos preços");
+		System.out.println("*************************");
+
+		for (Pedido pedido : pedidos) {
+			System.out.println(pedido.getPreco());
+		}
 	}
 
 	private static void mostraListaComSomenteNomeDosClientes(List<Pedido> pedidos) {
