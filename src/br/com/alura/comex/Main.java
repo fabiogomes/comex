@@ -16,6 +16,11 @@ public class Main {
 		List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 
 		mostraRelatorioComNomeDosClientesComList(pedidos);
+		mostraNumeroDePedidos(pedidos);
+	}
+
+	private static void mostraNumeroDePedidos(List<Pedido> pedidos) {
+		System.out.println("Número de pedidos: " + pedidos.size());
 	}
 
 	private static void mostraRelatorioComNomeDosClientesComList(List<Pedido> pedidos) {
