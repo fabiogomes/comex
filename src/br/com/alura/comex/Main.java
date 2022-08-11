@@ -1,7 +1,9 @@
 package br.com.alura.comex;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
 
@@ -21,6 +23,22 @@ public class Main {
 		mostraPrimeiroEUltimoPedidos(pedidos);
 		mostraListaComSomenteNomeDosClientes(pedidos);
 		mostraListaOrdenadaDosPrecos(pedidos);
+		
+		mostraListaDeCategoriasSemDuplicacoes(pedidos);
+	}
+
+	private static void mostraListaDeCategoriasSemDuplicacoes(List<Pedido> pedidos) {
+		Set<String> conjuntoCategorias  = new HashSet<>();
+
+		for (Pedido pedido : pedidos) {
+			conjuntoCategorias.add(pedido.getCategoria());
+		}
+		
+		System.out.println("***********************************");
+		System.out.println("Lista de categorias sem duplicações");
+		System.out.println("***********************************");
+
+		conjuntoCategorias.forEach(System.out::println);
 	}
 
 	private static void mostraListaOrdenadaDosPrecos(List<Pedido> pedidos) {
