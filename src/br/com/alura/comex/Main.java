@@ -1,5 +1,6 @@
 package br.com.alura.comex;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -18,6 +19,23 @@ public class Main {
 		mostraRelatorioComNomeDosClientesComList(pedidos);
 		mostraNumeroDePedidos(pedidos);
 		mostraPrimeiroEUltimoPedidos(pedidos);
+		mostraListaComSomenteNomeDosClientes(pedidos);
+	}
+
+	private static void mostraListaComSomenteNomeDosClientes(List<Pedido> pedidos) {
+		List<String> nomeDosCientes = new ArrayList<>();
+		
+		for (Pedido pedido : pedidos) {
+			nomeDosCientes.add(pedido.getCliente());
+		}
+
+		System.out.println("*************************");
+		System.out.println("Somente Nome dos Clientes");
+		System.out.println("*************************");
+		
+		for (String cliente : nomeDosCientes) {
+			System.out.println(cliente);
+		}
 	}
 
 	private static void mostraPrimeiroEUltimoPedidos(List<Pedido> pedidos) {
