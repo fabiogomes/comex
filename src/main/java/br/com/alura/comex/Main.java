@@ -23,7 +23,6 @@ public class Main {
 
 		// Utilizando XStream
 		List<Pedido> pedidos = ProcessadorDeXml.processaArquivoXStream("pedidos.xml");
-
 		mostraRelatorioComNomeDosClientesComList(pedidos);
 		mostraNumeroDePedidos(pedidos);
 		mostraPrimeiroEUltimoPedidos(pedidos);
