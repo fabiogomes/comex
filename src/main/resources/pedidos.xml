@@ -1,0 +1,130 @@
+<pedidos>
+  <pedido>
+    <categoria>INFORMÁTICA</categoria>
+    <produto>Notebook Samsung</produto>
+    <cliente>ANA</cliente>
+    <preco>3523.00</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-01</data>
+  </pedido>
+  <pedido>
+    <categoria>MÓVEIS</categoria>
+    <produto>Sofá 3 lugares</produto>
+    <cliente>ANA</cliente>
+    <preco>2500.00</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-05</data>
+  </pedido>
+  <pedido>
+    <categoria>LIVROS</categoria>
+    <produto>Clean Architecture</produto>
+    <cliente>ANA</cliente>
+    <preco>102.90</preco>
+    <quantidade>2</quantidade>
+    <data>2022-01-08</data>
+  </pedido>
+  <pedido>
+    <categoria>MÓVEIS</categoria>
+    <produto>Mesa de jantar 6 lugares</produto>
+    <cliente>ELI</cliente>
+    <preco>3678.98</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-06</data>
+  </pedido>
+  <pedido>
+    <categoria>CELULARES</categoria>
+    <produto>iPhone 13 Pro</produto>
+    <cliente>ANA</cliente>
+    <preco>9176.00</preco>
+    <quantidade>6</quantidade>
+    <data>2022-01-13</data>
+  </pedido>
+  <pedido>
+    <categoria>INFORMÁTICA</categoria>
+    <produto>&quot;Monitor Dell 27&quot;&quot;&quot;</produto>
+    <cliente>DANI</cliente>
+    <preco>1889.00</preco>
+    <quantidade>3</quantidade>
+    <data>2022-01-04</data>
+  </pedido>
+  <pedido>
+    <categoria>LIVROS</categoria>
+    <produto>Implementing Domain-Driven Design</produto>
+    <cliente>GABI</cliente>
+    <preco>144.07</preco>
+    <quantidade>3</quantidade>
+    <data>2022-01-10</data>
+  </pedido>
+  <pedido>
+    <categoria>AUTOMOTIVA</categoria>
+    <produto>Jogo de pneus</produto>
+    <cliente>BIA</cliente>
+    <preco>1276.79</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-15</data>
+  </pedido>
+  <pedido>
+    <categoria>LIVROS</categoria>
+    <produto>Clean Code</produto>
+    <cliente>BIA</cliente>
+    <preco>95.17</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-09</data>
+  </pedido>
+  <pedido>
+    <categoria>CELULARES</categoria>
+    <produto>Galaxy S22 Ultra</produto>
+    <cliente>DANI</cliente>
+    <preco>8549.10</preco>
+    <quantidade>5</quantidade>
+    <data>2022-01-14</data>
+  </pedido>
+  <pedido>
+    <categoria>INFORMÁTICA</categoria>
+    <produto>Macbook Pro 16</produto>
+    <cliente>CAIO</cliente>
+    <preco>31752.00</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-03</data>
+  </pedido>
+  <pedido>
+    <categoria>LIVROS</categoria>
+    <produto>Refactoring Improving the Design of Existing Code</produto>
+    <cliente>DANI</cliente>
+    <preco>173.90</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-12</data>
+  </pedido>
+  <pedido>
+    <categoria>MÓVEIS</categoria>
+    <produto>Cama queen size</produto>
+    <cliente>DANI</cliente>
+    <preco>3100.00</preco>
+    <quantidade>2</quantidade>
+    <data>2022-01-07</data>
+  </pedido>
+  <pedido>
+    <categoria>AUTOMOTIVA</categoria>
+    <produto>Central multimidia</produto>
+    <cliente>CAIO</cliente>
+    <preco>711.18</preco>
+    <quantidade>1</quantidade>
+    <data>2022-01-16</data>
+  </pedido>
+  <pedido>
+    <categoria>LIVROS</categoria>
+    <produto>Building Microservices</produto>
+    <cliente>CAIO</cliente>
+    <preco>300.28</preco>
+    <quantidade>2</quantidade>
+    <data>2022-01-11</data>
+  </pedido>
+  <pedido>
+    <categoria>INFORMÁTICA</categoria>
+    <produto>Galaxy Tab S8</produto>
+    <cliente>BIA</cliente>
+    <preco>5939.10</preco>
+    <quantidade>4</quantidade>
+    <data>2022-01-02</data>
+  </pedido>
+</pedidos>

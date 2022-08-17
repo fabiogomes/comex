@@ -16,7 +16,13 @@ public class Main {
 		*/
 
 		// Utilizando List
-		List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+		// List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+		
+		// Utilizando OpenCSV
+		// List<Pedido> pedidos = ProcessadorDeCsv.processaArquivoOpenCSV("pedidos.csv");
+
+		// Utilizando XStream
+		List<Pedido> pedidos = ProcessadorDeXml.processaArquivoXStream("pedidos.xml");
 
 		mostraRelatorioComNomeDosClientesComList(pedidos);
 		mostraNumeroDePedidos(pedidos);
