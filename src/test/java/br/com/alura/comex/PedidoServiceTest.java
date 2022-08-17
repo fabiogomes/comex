@@ -3,6 +3,7 @@ package br.com.alura.comex;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,5 +32,11 @@ class PedidoServiceTest {
 	void testUltimoRegistroDaListaComNomeDosClientes() {
 		List<String> listaNomeDosClientes = pedidoService.mostraListaComSomenteNomeDosClientes();
 		assertEquals("BIA", listaNomeDosClientes.get(listaNomeDosClientes.size() - 1));
+	}
+	
+	@Test
+	void testTotalRegistrosDaListaDeCategoriasSemDuplicacoes() {
+		Set<String> conjuntoNomeDosClientes = pedidoService.mostraListaDeCategoriasSemDuplicacoes();
+		assertEquals(5, conjuntoNomeDosClientes.size());
 	}
 }
