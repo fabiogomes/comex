@@ -15,7 +15,7 @@ public class ClienteDao {
 	}
 
 	public List<Cliente> buscarTodos() {
-		String jpql = "SELECT c FROM CLIENTE c";
+		String jpql = "SELECT c FROM Cliente c";
 		return this.em.createQuery(jpql, Cliente.class).getResultList();
 	}
 
@@ -37,12 +37,12 @@ public class ClienteDao {
 	}
 
 	public List<Cliente> buscaTodoPorStatus(Status status) {
-		String jpql = "SELECT c FROM CLIENTE c WHERE c.status= :status";
+		String jpql = "SELECT c FROM Cliente c WHERE c.status= :status";
 		return this.em.createQuery(jpql, Cliente.class).setParameter("status", status).getResultList();
 	}
 
 	public Cliente buscaClientePorNome(String nome) {
-		String jpql = "SELECT c FROM CLIENTE c WHERE c.nome= :nome";
+		String jpql = "SELECT c FROM Cliente c WHERE c.nome= :nome";
 		return this.em.createQuery(jpql, Cliente.class).setParameter("nome", nome).getSingleResult();
 	}
 }
