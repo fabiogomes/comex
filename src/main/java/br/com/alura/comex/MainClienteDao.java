@@ -38,7 +38,8 @@ public class MainClienteDao {
 		dao.cadastrar(sicrano);
 		dao.cadastrar(beltrano);
 		em.getTransaction().commit();
-	
+		
+		
 		dao.buscarTodos().forEach(System.out::println);
 		
 		em.getTransaction().begin();
@@ -55,8 +56,8 @@ public class MainClienteDao {
 
 		System.out.println(":: Busca clientes pelo status ATIVO ===========================================================");
 		
-		System.out.println(dao.buscaTodoPorStatus(Status.ATIVO));
-
+		dao.buscaTodoPorStatus(Status.ATIVO).forEach(System.out::println);
+		
 		em.close();
 	}
 }

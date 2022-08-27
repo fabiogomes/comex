@@ -8,6 +8,12 @@ import java.util.Set;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		Cliente cliente = new Cliente();
+		cliente.setNome("Fulano");
+		System.out.println(cliente.getNome());
+		
+		
 		// Utilizando Array
 		/*
 		Pedido[] pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
