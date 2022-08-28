@@ -3,6 +3,8 @@ package br.com.alura.comex;
 import javax.persistence.EntityManager;
 
 import br.com.alura.comex.dao.CategoriaDao;
+import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.util.JPAUtil;
 
 public class MainCategoriaDao {

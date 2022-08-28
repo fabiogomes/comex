@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import br.com.alura.comex.modelo.Cliente;
+
 public class Main {
 
 	public static void main(String[] args) {

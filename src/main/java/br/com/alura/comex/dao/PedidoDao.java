@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.com.alura.comex.PedidoComex;
+import br.com.alura.comex.modelo.PedidoComex;
 
 public class PedidoDao {
 	private EntityManager em;

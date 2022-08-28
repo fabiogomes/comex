@@ -3,6 +3,8 @@ package br.com.alura.comex;
 import javax.persistence.EntityManager;
 
 import br.com.alura.comex.dao.ClienteDao;
+import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.util.JPAUtil;
 
 public class MainClienteDao {

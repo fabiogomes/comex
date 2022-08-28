@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
 
-import br.com.alura.comex.Cliente;
-import br.com.alura.comex.Status;
+import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.Status;
 
 public class ClienteDao {
 	private EntityManager em;

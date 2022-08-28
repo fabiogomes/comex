@@ -1,5 +1,6 @@
-package br.com.alura.comex;
+package br.com.alura.comex.modelo;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,8 +20,19 @@ public class Cliente {
 	private String email;
 	private String profissao;
 	
+	@Embedded
+	private Endereco endereco;
+	
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public Long getId() {
 		return id;

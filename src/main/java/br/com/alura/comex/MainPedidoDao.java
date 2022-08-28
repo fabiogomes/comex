@@ -9,6 +9,13 @@ import br.com.alura.comex.dao.CategoriaDao;
 import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.dao.PedidoDao;
 import br.com.alura.comex.dao.ProdutoDao;
+import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.ItemDePedido;
+import br.com.alura.comex.modelo.PedidoComex;
+import br.com.alura.comex.modelo.Produto;
+import br.com.alura.comex.modelo.TipoDeDesconto;
+import br.com.alura.comex.modelo.TipoDeDescontoItem;
 import br.com.alura.comex.util.JPAUtil;
 
 public class MainPedidoDao {

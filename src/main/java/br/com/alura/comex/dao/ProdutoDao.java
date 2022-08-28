@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.com.alura.comex.Categoria;
-import br.com.alura.comex.Produto;
+import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.Produto;
 
 public class ProdutoDao {
 	private EntityManager em;
