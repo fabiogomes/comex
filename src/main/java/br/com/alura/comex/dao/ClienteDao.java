@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
 
 import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.RelatorioClientesPorEstadoVo;
 import br.com.alura.comex.modelo.Status;
 
 public class ClienteDao {
@@ -19,7 +20,7 @@ public class ClienteDao {
 	public List<Cliente> buscarTodos() {
 		String jpql = "SELECT c FROM Cliente c";
 		
-		return this.em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
+		return this.em.createQuery(jpql, Cliente.class).getResultList();
 	}
 
 	public Cliente buscaPorId(Long id) {
@@ -60,5 +61,11 @@ public class ClienteDao {
 	public List<Cliente> buscaClientePorNome(String nome) {
 		String jpql = "SELECT c FROM Cliente c WHERE c.nome= :nome";
 		return this.em.createQuery(jpql, Cliente.class).setParameter("nome", nome).getResultList();
+	}
+	
+	public List<RelatorioClientesPorEstadoVo> relatorioDeClientePorEstado() {
+		String jpql = "SELECT new br.com.alura.comex.modelo.RelatorioClientesPorEstadoVo(c.endereco.estado, COUNT(c.id)) FROM Cliente c GROUP BY c.endereco.estado";
+
+		return this.em.createQuery(jpql, RelatorioClientesPorEstadoVo.class).getResultList();
 	}
 }

@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import br.com.alura.comex.dao.ClienteDao;
 import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.Endereco;
 import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.util.JPAUtil;
 
@@ -18,6 +19,16 @@ public class MainClienteDao {
 		fulano.setEmail("fulano@gmail.com");
 		fulano.setTelefone("99999999");
 		fulano.setProfissao("Analista de Sistemas");
+
+		Endereco enderecoFulano = new Endereco();
+		enderecoFulano.setRua("Rua Bento Lisboa");
+		enderecoFulano.setNumero("Nº 148");
+		enderecoFulano.setComplemento(" APTº 302");
+		enderecoFulano.setBairro("Catete");
+		enderecoFulano.setCidade("Rio de Janeiro");
+		enderecoFulano.setEstado("Rio de Janeiro");
+	
+		fulano.setEndereco(enderecoFulano);
 		
 		Cliente sicrano = new Cliente();
 		sicrano.setNome("Sicrano de tal");
@@ -26,12 +37,32 @@ public class MainClienteDao {
 		sicrano.setTelefone("6666666");
 		sicrano.setProfissao("Engenheiro Civil");
 
+		Endereco enderecoSicrano = new Endereco();
+		enderecoSicrano.setRua("Rua Jiquiba");
+		enderecoSicrano.setNumero("Nº 60");
+		enderecoSicrano.setComplemento(" APTº 102");
+		enderecoSicrano.setBairro("Maracanã");
+		enderecoSicrano.setCidade("Rio de Janeiro");
+		enderecoSicrano.setEstado("Rio de Janeiro");
+	
+		sicrano.setEndereco(enderecoSicrano);
+
 		Cliente beltrano = new Cliente();
 		beltrano.setNome("Beltrano de tal");
 		beltrano.setCpf("12312413123");
 		beltrano.setEmail("beltrano@gmail.com");
 		beltrano.setTelefone("1111111");
 		beltrano.setProfissao("Arquiteto");
+
+		Endereco enderecoBeltrano = new Endereco();
+		enderecoBeltrano.setRua("Rua Tropowsky");
+		enderecoBeltrano.setNumero("Nº 900");
+		enderecoBeltrano.setComplemento(" APTº 801");
+		enderecoBeltrano.setBairro("Gutierrez");
+		enderecoBeltrano.setCidade("Belo Horizonte");
+		enderecoBeltrano.setEstado("Minas Gerais");
+	
+		beltrano.setEndereco(enderecoBeltrano);
 		
 		ClienteDao dao = new ClienteDao(em);
 		
@@ -59,6 +90,11 @@ public class MainClienteDao {
 		System.out.println(":: Busca clientes pelo status ATIVO ===========================================================");
 		
 		dao.buscaTodoPorStatus(Status.ATIVO).forEach(System.out::println);
+		
+		System.out.println(":: Busca Relatório número de cliente por estado ===============================================");
+		
+		dao.relatorioDeClientePorEstado().forEach(System.out::println);
+		
 		
 		em.close();
 	}
