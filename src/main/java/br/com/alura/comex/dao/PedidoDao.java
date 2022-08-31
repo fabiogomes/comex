@@ -27,7 +27,7 @@ public class PedidoDao {
 	}
 
 	public List<PedidoComex> buscaTodoDeUmCliente(String nomeDoCliente) {
-		String jpql = "SELECT p FROM PedidoComex p WHERE p.cliente.nome= :nome";
+		String jpql = "SELECT new br.com.alura.comex.Relatario(p) FROM PedidoComex p WHERE p.cliente.nome= :nome";
 		return this.em.createQuery(jpql, PedidoComex.class).setParameter("nome", nomeDoCliente).getResultList();
 	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,8 +49,8 @@ public class PedidoComex {
 		this.itens = itens;
 	}
 	public void addItemDePedido(ItemDePedido item) {
-		item.setPedido(this);
-		itens.add(item);
+		item.setPedido(this); // pedidoFulano
+		itens.add(item); // [item1, item2]
 	}
 	
 	public void setId(Long id) {

@@ -61,9 +61,19 @@ public class MainProdutoDao {
 		produtoDao.cadastrar(junitEmAcao);
 		em.getTransaction().commit();
 		
+		em.clear(); //Necessário para utilizar o select do find para simular a estratégia EAGER
+		
 		System.out.println("==============================================================");
-		produtoDao.listaTodos().forEach(System.out::println);
+		//produtoDao.listaTodos().forEach(System.out::println);
 		System.out.println("==============================================================");
-		produtoDao.listaIndisponiveis().forEach(System.out::println);
+		//produtoDao.listaIndisponiveis().forEach(System.out::println);
+		
+		//Produto buscaProduto = produtoDao.buscaPorId(1L);
+		Produto buscaProduto = produtoDao.buscaProdutoComCategoria(1L);
+		
+		em.close();
+		System.out.println(buscaProduto.getCategoria().getNome());
+		
+		//System.out.println(buscaProduto.getCategoria().getNome());
 	}
 }

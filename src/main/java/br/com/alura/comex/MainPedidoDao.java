@@ -2,6 +2,7 @@ package br.com.alura.comex;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -93,6 +94,12 @@ public class MainPedidoDao {
 		pedidoDao.cadastrar(pedidoFulano);
 		em.getTransaction().commit();
 		
+		PedidoComex buscaPorId = pedidoDao.buscaPorId(1L);
+		System.out.println(buscaPorId.getItens().size());
+		
+		
 		pedidoDao.buscaTodoDeUmCliente("Fulano de tal").forEach(System.out::println);
+		
+		//Pedido find = em.find(Pedido.class, 1L);
 	}
 }
