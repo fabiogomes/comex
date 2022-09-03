@@ -1,4 +1,4 @@
-package br.com.alura.comex.dao;
+package br.com.alura.comex.repository;
 
 import java.util.List;
 
