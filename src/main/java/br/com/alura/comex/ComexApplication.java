@@ -1,6 +1,8 @@
 package br.com.alura.comex;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,21 +13,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.Produto;
 import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.repository.ClienteRepository;
+import br.com.alura.comex.repository.ProdutoRepository;
 
 @SpringBootApplication
 public class ComexApplication implements CommandLineRunner {
 
-//	private final ClienteRepository repository;
+	private final ClienteRepository repository;
 	private final CategoriaRepository categoriaRepository;
+	private final ProdutoRepository produtoRepository;
 
-//	public ComexApplication(ClienteRepository repository) {
-//		this.repository = repository;
-//	}
-
-	public ComexApplication(CategoriaRepository repository) {
-		this.categoriaRepository = repository;
+	public ComexApplication(ClienteRepository repository, CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
+		this.repository = repository;
+		this.categoriaRepository = categoriaRepository;
+		this.produtoRepository = produtoRepository;
 	}
 
 	public static void main(String[] args) {
@@ -35,7 +39,66 @@ public class ComexApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// iniciarContextoCliente();
-		iniciarContextoCategoria();
+		//iniciarContextoCategoria();
+		iniciarContextoProduto();
+	}
+
+	private void iniciarContextoProduto() {
+		// cadastraProdutos();
+		
+		buscaTodosOsProdutos();
+		
+		buscaProdutosIndisponiveis();
+	}
+
+	private void buscaProdutosIndisponiveis() {
+		System.out.println("Exibir todos os produtos INDISPONÍVEIS ==========================================");
+
+		List<Produto> produtos = produtoRepository.listaProdutosIndisponiveis();
+		
+		produtos.forEach(System.out::println);
+	}
+
+	private void buscaTodosOsProdutos() {
+		System.out.println("Exibir todos os produtos ==========================================");
+
+		produtoRepository.findAll().forEach(System.out::println);
+	}
+
+	private void cadastraProdutos() {
+		System.out.println("Cadastrando os produtos ===========================================");
+		
+		Categoria informatica = categoriaRepository.findById(1L).orElse(null);
+		Categoria livro = categoriaRepository.findById(3L).orElse(null);
+		
+		Produto mouse = new Produto();
+		mouse.setCategoria(informatica);
+		mouse.setNome("Mouse");
+		mouse.setPrecoUnitario(new BigDecimal("34.00"));
+		mouse.setQuantidade(10);
+
+		Produto teclado = new Produto();
+		teclado.setCategoria(informatica);
+		teclado.setNome("Teclado");
+		teclado.setPrecoUnitario(new BigDecimal("79.00"));
+		teclado.setQuantidade(0);
+		
+		Produto cleanCode = new Produto();
+		cleanCode.setCategoria(livro);
+		cleanCode.setNome("Clean Code");
+		cleanCode.setPrecoUnitario(new BigDecimal("89.00"));
+		cleanCode.setQuantidade(20);
+		
+		Produto junitEmAcao = new Produto();
+		junitEmAcao.setCategoria(livro);
+		junitEmAcao.setNome("JUnit em ação");
+		junitEmAcao.setPrecoUnitario(new BigDecimal("69.00"));
+		junitEmAcao.setQuantidade(0);
+		
+		produtoRepository.save(mouse);
+		produtoRepository.save(teclado);
+		produtoRepository.save(cleanCode);
+		produtoRepository.save(junitEmAcao);
 	}
 
 	private void iniciarContextoCategoria() {
@@ -230,6 +293,5 @@ public class ComexApplication implements CommandLineRunner {
 		List<Categoria> categorias = categoriaRepository.buscaTodasAsCategoriasAtivas();
 		
 		categorias.forEach(System.out::println);
-		
 	}
 }
