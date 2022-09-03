@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import br.com.alura.comex.modelo.Categoria;
-import br.com.alura.comex.modelo.Cliente;
-import br.com.alura.comex.modelo.Endereco;
-import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
-import br.com.alura.comex.repository.ClienteRepository;
 
 @SpringBootApplication
 public class ComexApplication implements CommandLineRunner {
@@ -39,15 +39,17 @@ public class ComexApplication implements CommandLineRunner {
 	}
 
 	private void iniciarContextoCategoria() {
-		// cadastraTresCategoriasAtivas();
+		//cadastraTresCategoriasAtivas();
 
-		// buscaTodasCategorias();
+		//buscaTodasCategorias();
 
-		// alteraCategoriaParaInativa();
+		//alteraCategoriaParaInativa();
 
 		buscaTodasCategorias();
 		
-		listaTodasAsCategoriasAtivas();
+		//listaTodasAsCategoriasAtivas();
+		
+		buscaTodasCategoriasPaginada(1);
 	}
 
 	private void iniciarContextoCliente() {
@@ -175,17 +177,21 @@ public class ComexApplication implements CommandLineRunner {
 		System.out.println("Cadastrando as categorias ========================================");
 
 		Categoria informatica = new Categoria();
-		informatica.setNome("INFORMÁTICA");
+		informatica.setNome("CELULARES");
 
 		Categoria moveis = new Categoria();
-		moveis.setNome("MÓVEIS");
+		moveis.setNome("ELETRODOMÉSTICOS");
 
 		Categoria livros = new Categoria();
-		livros.setNome("LIVROS");
+		livros.setNome("ELETROPORTÁTEIS");
+		
+		Categoria beleza = new Categoria();
+		beleza.setNome("BELEZA E PERFURAMARIA");
 
 		categoriaRepository.save(informatica);
 		categoriaRepository.save(moveis);
 		categoriaRepository.save(livros);
+		categoriaRepository.save(beleza);
 	}
 
 	private void alteraCategoriaParaInativa() {
@@ -206,11 +212,24 @@ public class ComexApplication implements CommandLineRunner {
 		categoriaRepository.findAll().forEach(System.out::println);
 	}
 
+	private void buscaTodasCategoriasPaginada(Integer pagina) {
+		System.out.println("Exibir todas as categorias paginada ==============================");
+
+		Pageable pageable = PageRequest.of(pagina, 5, Sort.unsorted());
+		Page<Categoria> categorias = categoriaRepository.findAll(pageable);
+		System.out.println(categorias);
+		System.out.println("Pagina atual " + categorias.getNumber());
+		System.out.println("Total elemento " + categorias.getTotalElements());
+		categorias.forEach(System.out::println);
+	}
+
+	
 	private void listaTodasAsCategoriasAtivas() {
 		System.out.println("Exibir todas as categorias ATIVAS ================================");
 
 		List<Categoria> categorias = categoriaRepository.buscaTodasAsCategoriasAtivas();
 		
 		categorias.forEach(System.out::println);
+		
 	}
 }
