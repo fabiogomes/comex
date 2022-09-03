@@ -44,9 +44,9 @@ public class Categoria {
 		this.status = status;
 	}
 	
-//	@Override
-//	public String toString() {
-//		// TODO Auto-generated method stub
-//		return "Categoria - [nome: " + this.nome + " | status: " + this.status + "]";
-//	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Categoria - [nome: " + this.nome + " | status: " + this.status + "]";
+	}
 }

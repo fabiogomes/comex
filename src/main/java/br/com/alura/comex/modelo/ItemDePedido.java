@@ -19,7 +19,8 @@ public class ItemDePedido {
 	private Long id;
 	private BigDecimal precoUnitario;
 	private Integer quantidade;
-
+	private BigDecimal valor;
+	
 	@ManyToOne
 	private Produto produto;
 
@@ -62,6 +63,8 @@ public class ItemDePedido {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+		this.precoUnitario = produto.getPrecoUnitario();
+		
 	}
 
 	public PedidoComex getPedido() {
@@ -88,6 +91,11 @@ public class ItemDePedido {
 		this.tipoDeDesconto = tipoDeDesconto;
 	}
 
+	public BigDecimal getValor() {
+		this.valor = this.precoUnitario.multiply(new BigDecimal(this.quantidade)); 
+		return this.valor;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

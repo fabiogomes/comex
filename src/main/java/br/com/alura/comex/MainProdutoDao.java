@@ -68,9 +68,9 @@ public class MainProdutoDao {
 		System.out.println("==============================================================");
 		//produtoDao.listaIndisponiveis().forEach(System.out::println);
 		
-		//Produto buscaProduto = produtoDao.buscaPorId(1L);
-		Produto buscaProduto = produtoDao.buscaProdutoComCategoria(1L);
-		
+		Produto buscaProduto = produtoDao.buscaPorId(1L);
+		//Produto buscaProduto = produtoDao.buscaProdutoComCategoria(1L);
+		System.out.println(buscaProduto.getNome());
 		em.close();
 		System.out.println(buscaProduto.getCategoria().getNome());
 		

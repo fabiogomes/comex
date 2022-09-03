@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +23,7 @@ public class PedidoComex {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private LocalDate data;
+	private LocalDate data = LocalDate.now();
 	
 	@ManyToOne
 	private Cliente cliente;
@@ -37,6 +36,8 @@ public class PedidoComex {
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemDePedido> itens = new ArrayList<>();
 
+	private BigDecimal valorTotal = BigDecimal.ZERO;
+	
 	public Long getId() {
 		return id;
 	}
@@ -48,9 +49,15 @@ public class PedidoComex {
 	public void setItens(List<ItemDePedido> itens) {
 		this.itens = itens;
 	}
+	
 	public void addItemDePedido(ItemDePedido item) {
+		Integer quantidadeEmEstoqueAtualizada = item.getProduto().getQuantidade() - item.getQuantidade();
+		item.getProduto().setQuantidade(quantidadeEmEstoqueAtualizada);
+		
 		item.setPedido(this); // pedidoFulano
 		itens.add(item); // [item1, item2]
+		
+		this.valorTotal = this.valorTotal.add(item.getValor());
 	}
 	
 	public void setId(Long id) {
@@ -71,6 +78,14 @@ public class PedidoComex {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public BigDecimal getDesconto() {

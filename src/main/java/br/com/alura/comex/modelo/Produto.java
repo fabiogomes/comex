@@ -3,11 +3,9 @@ package br.com.alura.comex.modelo;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -19,10 +17,19 @@ public class Produto {
 	private String nome;
 	private String descricao;
 	private BigDecimal precoUnitario;
-	private Integer quantidade;
+	private Integer quantidade = 0;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Categoria categoria;
+	
+	public Produto() {}
+
+	public Produto(String nome, BigDecimal precoUnitario, Integer quantidade, Categoria categoria) {
+		this.nome = nome;
+		this.precoUnitario = precoUnitario;
+		this.quantidade = quantidade;
+		this.categoria = categoria;
+	}
 
 	public Long getId() {
 		return id;
@@ -61,6 +68,10 @@ public class Produto {
 	}
 
 	public void setQuantidade(Integer quantidade) {
+		if(quantidade < 0) {
+			throw new IllegalArgumentException("Sem estoque!");
+		}
+		
 		this.quantidade = quantidade;
 	}
 
