@@ -17,6 +17,7 @@ import br.com.alura.comex.modelo.Cliente;
 import br.com.alura.comex.modelo.ItemDePedido;
 import br.com.alura.comex.modelo.Pedido;
 import br.com.alura.comex.modelo.Produto;
+import br.com.alura.comex.modelo.RelatorioClientesMaisLucrativosProjecao;
 import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.modelo.TipoDeDesconto;
 import br.com.alura.comex.modelo.TipoDeDescontoItem;
@@ -60,6 +61,16 @@ public class ComexApplication implements CommandLineRunner {
 		listaTodosPedidos();
 		
 		listaTodosDeUmCliente();
+		
+		listaRelatorioDeClientesMaisLucrativos();
+	}
+
+	private void listaRelatorioDeClientesMaisLucrativos() {
+		System.out.println("Exibir relatório de clientes mais lucrativos =====================");
+		
+		List<RelatorioClientesMaisLucrativosProjecao> relatorio = pedidoRepository.buscaRelatorioClientesMaisLucrativos();
+		
+		relatorio.forEach(f -> System.out.println("Nome do cliente: " + f.getNome() + " | Valor: " + f.getValor()));
 	}
 
 	private void listaTodosDeUmCliente() {
