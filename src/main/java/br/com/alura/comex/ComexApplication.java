@@ -1,8 +1,8 @@
 package br.com.alura.comex;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +13,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import br.com.alura.comex.modelo.Categoria;
+import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.ItemDePedido;
+import br.com.alura.comex.modelo.Pedido;
 import br.com.alura.comex.modelo.Produto;
 import br.com.alura.comex.modelo.StatusCategoria;
+import br.com.alura.comex.modelo.TipoDeDesconto;
+import br.com.alura.comex.modelo.TipoDeDescontoItem;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ClienteRepository;
+import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 
 @SpringBootApplication
@@ -25,11 +31,13 @@ public class ComexApplication implements CommandLineRunner {
 	private final ClienteRepository repository;
 	private final CategoriaRepository categoriaRepository;
 	private final ProdutoRepository produtoRepository;
+	private final PedidoRepository pedidoRepository;
 
-	public ComexApplication(ClienteRepository repository, CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
+	public ComexApplication(ClienteRepository repository, CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
 		this.repository = repository;
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
+		this.pedidoRepository = pedidoRepository;
 	}
 
 	public static void main(String[] args) {
@@ -40,9 +48,99 @@ public class ComexApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// iniciarContextoCliente();
 		//iniciarContextoCategoria();
-		iniciarContextoProduto();
+		//iniciarContextoProduto();
+		iniciarContextoPedido();
 	}
 
+	private void iniciarContextoPedido() {
+		//cadastraPedidoSicrano();
+		
+		//cadastraPedidoBeltrano();
+		
+		listaTodosPedidos();
+		
+		listaTodosDeUmCliente();
+	}
+
+	private void listaTodosDeUmCliente() {
+		System.out.println("Exibir todos os pedidos de Beltrano ==============================");
+		
+		pedidoRepository.buscaTodoDeUmCliente("Beltrano de tal").forEach(System.out::println);
+	}
+
+	private void listaTodosPedidos() {
+		System.out.println("Exibir todos os pedidos ==========================================");
+
+		pedidoRepository.listaTodos().forEach(System.out::println);
+	}
+
+	private void cadastraPedidoSicrano() {
+		System.out.println("Cadastrando o pedido ===========================================");
+		
+		Cliente sicrano = repository.findById(2L).orElse(null);
+		
+		Produto mouse = produtoRepository.findById(1L).orElse(null);
+		Produto cleanCode = produtoRepository.findById(3L).orElse(null);
+
+		// Itens de pedido de Sicrano ----------------------------------
+
+		ItemDePedido item1 = new ItemDePedido();
+		item1.setPrecoUnitario(mouse.getPrecoUnitario());
+		item1.setQuantidade(2);
+		item1.setTipoDeDesconto(TipoDeDescontoItem.NENHUM);
+		item1.setProduto(mouse);
+		
+		ItemDePedido item2 = new ItemDePedido();
+		item2.setPrecoUnitario(cleanCode.getPrecoUnitario());
+		item2.setQuantidade(4);
+		item2.setTipoDeDesconto(TipoDeDescontoItem.NENHUM);
+		item2.setProduto(cleanCode);
+	
+		// Pedido de Sicrano -------------------------------------------
+		Pedido pedidoSicrano = new Pedido();
+		pedidoSicrano.setData(LocalDate.now());
+		pedidoSicrano.setCliente(sicrano);
+		pedidoSicrano.setTipoDeDesconto(TipoDeDesconto.FIDELIDADE);
+
+		pedidoSicrano.addItemDePedido(item1);
+		pedidoSicrano.addItemDePedido(item2);
+	
+		pedidoRepository.save(pedidoSicrano);
+	}
+
+	private void cadastraPedidoBeltrano() {
+		System.out.println("Cadastrando o pedido de Beltrano ===========================================");
+		
+		Cliente sicrano = repository.findById(3L).orElse(null);
+		
+		Produto mouse = produtoRepository.findById(1L).orElse(null);
+		Produto cleanCode = produtoRepository.findById(3L).orElse(null);
+
+		// Itens de pedido de Beltrano ---------------------------------
+		ItemDePedido item3 = new ItemDePedido();
+		item3.setPrecoUnitario(mouse.getPrecoUnitario());
+		item3.setQuantidade(8);
+		item3.setTipoDeDesconto(TipoDeDescontoItem.NENHUM);
+		item3.setProduto(mouse);
+		
+		ItemDePedido item4 = new ItemDePedido();
+		item4.setPrecoUnitario(cleanCode.getPrecoUnitario());
+		item4.setQuantidade(16);
+		item4.setTipoDeDesconto(TipoDeDescontoItem.NENHUM);
+		item4.setProduto(cleanCode);
+	
+		// Pedido de Sicrano -------------------------------------------
+		Pedido pedidoBeltrano = new Pedido();
+		pedidoBeltrano.setData(LocalDate.now());
+		pedidoBeltrano.setCliente(sicrano);
+		pedidoBeltrano.setTipoDeDesconto(TipoDeDesconto.FIDELIDADE);
+
+		pedidoBeltrano.addItemDePedido(item3);
+		pedidoBeltrano.addItemDePedido(item4);
+	
+		pedidoRepository.save(pedidoBeltrano);
+	}
+	
 	private void iniciarContextoProduto() {
 		// cadastraProdutos();
 		
