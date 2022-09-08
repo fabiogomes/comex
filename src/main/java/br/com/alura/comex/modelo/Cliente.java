@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Cliente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -19,12 +19,26 @@ public class Cliente {
 	private String telefone;
 	private String email;
 	private String profissao;
-	
+
 	@Embedded
 	private Endereco endereco;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
+
+	public Cliente() {
+	}
+
+	public Cliente(String nome, String cpf, String telefone, String email, String profissao, Endereco endereco,
+			Status status) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.email = email;
+		this.profissao = profissao;
+		this.endereco = endereco;
+		this.status = status;
+	}
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -89,10 +103,10 @@ public class Cliente {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "[Nome: " + this.nome + "| E-mail:" + this.email + "| Status: " + this.status +"]";
-	}	
+		return "[Nome: " + this.nome + "| E-mail:" + this.email + "| Status: " + this.status + "]";
+	}
 }
