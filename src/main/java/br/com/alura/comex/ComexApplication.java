@@ -11,13 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 import br.com.alura.comex.modelo.Categoria;
 import br.com.alura.comex.modelo.Cliente;
+import br.com.alura.comex.modelo.Endereco;
 import br.com.alura.comex.modelo.ItemDePedido;
 import br.com.alura.comex.modelo.Pedido;
 import br.com.alura.comex.modelo.Produto;
 import br.com.alura.comex.modelo.RelatorioClientesMaisLucrativosProjecao;
+import br.com.alura.comex.modelo.Status;
 import br.com.alura.comex.modelo.StatusCategoria;
 import br.com.alura.comex.modelo.TipoDeDesconto;
 import br.com.alura.comex.modelo.TipoDeDescontoItem;
@@ -25,17 +28,18 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
+import br.com.alura.comex.specification.SpecificationCliente;
 
 @SpringBootApplication
 public class ComexApplication implements CommandLineRunner {
 
-	private final ClienteRepository repository;
+	private final ClienteRepository clienteRepository;
 	private final CategoriaRepository categoriaRepository;
 	private final ProdutoRepository produtoRepository;
 	private final PedidoRepository pedidoRepository;
 
-	public ComexApplication(ClienteRepository repository, CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
-		this.repository = repository;
+	public ComexApplication(ClienteRepository clienteRepository, CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
+		this.clienteRepository = clienteRepository;
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
 		this.pedidoRepository = pedidoRepository;
@@ -47,12 +51,54 @@ public class ComexApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// iniciarContextoCliente();
-		//iniciarContextoCategoria();
+		//iniciarContextoCliente();
+		iniciarContextoCategoria();
 		//iniciarContextoProduto();
-		iniciarContextoPedido();
+		//iniciarContextoPedido();
 	}
 
+	private void iniciarContextoCliente() {
+		//salvarClientes();
+
+		listaTodosOsClientes();
+
+		atualizarClienteParaSuspenso();
+
+		listaTodosOsClientes();
+
+		//deletar();
+
+		//listaTodosOsClientes();
+
+		buscaClientePorNome();
+
+		pesquisaTodosOsClientesAtivos();
+		
+		//buscaClientePorNomeSpecification();
+	}
+	
+	private void iniciarContextoCategoria() {
+		cadastraTresCategoriasAtivas();
+
+		//buscaTodasCategorias();
+
+		//alteraCategoriaParaInativa();
+
+		buscaTodasCategorias();
+		
+		//listaTodasAsCategoriasAtivas();
+		
+		buscaTodasCategoriasPaginada(1);
+	}
+
+	private void iniciarContextoProduto() {
+		// cadastraProdutos();
+		
+		buscaTodosOsProdutos();
+		
+		buscaProdutosIndisponiveis();
+	}
+	
 	private void iniciarContextoPedido() {
 		//cadastraPedidoSicrano();
 		
@@ -88,7 +134,7 @@ public class ComexApplication implements CommandLineRunner {
 	private void cadastraPedidoSicrano() {
 		System.out.println("Cadastrando o pedido ===========================================");
 		
-		Cliente sicrano = repository.findById(2L).orElse(null);
+		Cliente sicrano = clienteRepository.findById(2L).orElse(null);
 		
 		Produto mouse = produtoRepository.findById(1L).orElse(null);
 		Produto cleanCode = produtoRepository.findById(3L).orElse(null);
@@ -122,7 +168,7 @@ public class ComexApplication implements CommandLineRunner {
 	private void cadastraPedidoBeltrano() {
 		System.out.println("Cadastrando o pedido de Beltrano ===========================================");
 		
-		Cliente sicrano = repository.findById(3L).orElse(null);
+		Cliente sicrano = clienteRepository.findById(3L).orElse(null);
 		
 		Produto mouse = produtoRepository.findById(1L).orElse(null);
 		Produto cleanCode = produtoRepository.findById(3L).orElse(null);
@@ -152,14 +198,6 @@ public class ComexApplication implements CommandLineRunner {
 		pedidoRepository.save(pedidoBeltrano);
 	}
 	
-	private void iniciarContextoProduto() {
-		// cadastraProdutos();
-		
-		buscaTodosOsProdutos();
-		
-		buscaProdutosIndisponiveis();
-	}
-
 	private void buscaProdutosIndisponiveis() {
 		System.out.println("Exibir todos os produtos INDISPONÍVEIS ==========================================");
 
@@ -210,155 +248,131 @@ public class ComexApplication implements CommandLineRunner {
 		produtoRepository.save(junitEmAcao);
 	}
 
-	private void iniciarContextoCategoria() {
-		//cadastraTresCategoriasAtivas();
+	private void listaTodosOsClientes() {
+		System.out.println("Exibir todos os clientes ==========================================");
 
-		//buscaTodasCategorias();
-
-		//alteraCategoriaParaInativa();
-
-		buscaTodasCategorias();
-		
-		//listaTodasAsCategoriasAtivas();
-		
-		buscaTodasCategoriasPaginada(1);
+		clienteRepository.findAll().forEach(System.out::println);
 	}
 
-	private void iniciarContextoCliente() {
-		// salvarClientes();
+	private void buscaClientePorNome() {
+		System.out.println("Exibir buscar pelo nome do cliente ================================");
 
-		// listaTodosOsClientes();
+		List<Cliente> clientes = clienteRepository.findByNome("Beltrano de tal");
 
-		// atualizarClienteParaSuspenso();
-
-		// listaTodosOsClientes();
-
-		// deletar();
-
-		// listaTodosOsClientes();
-
-		// buscaClientePorNome();
-
-		// pesquisaTodosOsClientesAtivos();
+		clientes.forEach(System.out::println);
 	}
 
-//	private void listaTodosOsClientes() {
-//		System.out.println("Exibir todos os clientes ==========================================");
-//
-//		repository.findAll().forEach(System.out::println);
-//	}
-//
-//	private void buscaClientePorNome() {
-//		System.out.println("Exibir buscar pelo nome do cliente ================================");
-//
-//		List<Cliente> clientes = repository.findByNome("Beltrano de tal");
-//
-//		clientes.forEach(System.out::println);
-//	}
-//
-//	private void pesquisaTodosOsClientesAtivos() {
-//		System.out.println("Exibir clientes com status ATIVO ==================================");
-//
-//		List<Cliente> clientes = repository.buscaPorStatus(Status.ATIVO);
-//
-//		clientes.forEach(System.out::println);
-//	}
-//
-//	private void atualizarClienteParaSuspenso() {
-//		System.out.println("Atualizando o cliente para SUSPENSO ===============================");
-//
-//		Cliente cliente = repository.findById(2L).orElse(null);
-//		cliente.setStatus(Status.SUSPENSO);
-//
-//		repository.save(cliente);
-//
-//		System.out.println("Atualizado!!! =====================================================");
-//	}
-//
-//	private void salvarClientes() {
-//		System.out.println("Cadastrando os clientes ===========================================");
-//
-//		Cliente fulano = new Cliente();
-//		fulano.setNome("Fulano de tal");
-//		fulano.setCpf("12345678901");
-//		fulano.setEmail("fulano@gmail.com");
-//		fulano.setTelefone("99999999");
-//		fulano.setProfissao("Analista de Sistemas");
-//
-//		Endereco enderecoFulano = new Endereco();
-//		enderecoFulano.setRua("Rua Bento Lisboa");
-//		enderecoFulano.setNumero("Nº 148");
-//		enderecoFulano.setComplemento(" APTº 302");
-//		enderecoFulano.setBairro("Catete");
-//		enderecoFulano.setCidade("Rio de Janeiro");
-//		enderecoFulano.setEstado("Rio de Janeiro");
-//
-//		fulano.setEndereco(enderecoFulano);
-//
-//		Cliente sicrano = new Cliente();
-//		sicrano.setNome("Sicrano de tal");
-//		sicrano.setCpf("8901898989");
-//		sicrano.setEmail("sicrano@gmail.com");
-//		sicrano.setTelefone("6666666");
-//		sicrano.setProfissao("Engenheiro Civil");
-//
-//		Endereco enderecoSicrano = new Endereco();
-//		enderecoSicrano.setRua("Rua Jiquiba");
-//		enderecoSicrano.setNumero("Nº 60");
-//		enderecoSicrano.setComplemento(" APTº 102");
-//		enderecoSicrano.setBairro("Maracanã");
-//		enderecoSicrano.setCidade("Rio de Janeiro");
-//		enderecoSicrano.setEstado("Rio de Janeiro");
-//
-//		sicrano.setEndereco(enderecoSicrano);
-//
-//		Cliente beltrano = new Cliente();
-//		beltrano.setNome("Beltrano de tal");
-//		beltrano.setCpf("12312413123");
-//		beltrano.setEmail("beltrano@gmail.com");
-//		beltrano.setTelefone("1111111");
-//		beltrano.setProfissao("Arquiteto");
-//
-//		Endereco enderecoBeltrano = new Endereco();
-//		enderecoBeltrano.setRua("Rua Tropowsky");
-//		enderecoBeltrano.setNumero("Nº 900");
-//		enderecoBeltrano.setComplemento(" APTº 801");
-//		enderecoBeltrano.setBairro("Gutierrez");
-//		enderecoBeltrano.setCidade("Belo Horizonte");
-//		enderecoBeltrano.setEstado("Minas Gerais");
-//
-//		beltrano.setEndereco(enderecoBeltrano);
-//
-//		repository.save(fulano);
-//		repository.save(sicrano);
-//		repository.save(beltrano);
-//
-//		System.out.println("Salvo!!! ===================================================================");
-//	}
-//
-//	private void deletar() {
-//		System.out.println("Removendo o cliente ========================================================");
-//
-//		Long id = 1L;
-//		repository.deleteById(id);
-//
-//		System.out.println("Deletado!!! ================================================================");
-//	}
+	private void pesquisaTodosOsClientesAtivos() {
+		System.out.println("Exibir clientes com status ATIVO ==================================");
+
+		List<Cliente> clientes = clienteRepository.buscaPorStatus(Status.ATIVO);
+
+		clientes.forEach(System.out::println);
+	}
+
+	private void atualizarClienteParaSuspenso() {
+		System.out.println("Atualizando o cliente para SUSPENSO ===============================");
+
+		Cliente cliente = clienteRepository.findById(2L).orElse(null);
+		cliente.setStatus(Status.SUSPENSO);
+
+		clienteRepository.save(cliente);
+
+		System.out.println("Atualizado!!! =====================================================");
+	}
+
+	
+	private void buscaClientePorNomeSpecification() {
+		System.out.println("Exibir buscar pelo nome do cliente usando Specification ===========");
+		List<Cliente> clientes = clienteRepository.findAll(Specification.where(SpecificationCliente.nome("Beltrano de tal")));
+		 
+		clientes.forEach(System.out::println);
+	}
+	
+	private void salvarClientes() {
+		System.out.println("Cadastrando os clientes ===========================================");
+
+		Cliente fulano = new Cliente();
+		fulano.setNome("Fulano de tal");
+		fulano.setCpf("12345678901");
+		fulano.setEmail("fulano@gmail.com");
+		fulano.setTelefone("99999999");
+		fulano.setProfissao("Analista de Sistemas");
+
+		Endereco enderecoFulano = new Endereco();
+		enderecoFulano.setRua("Rua Bento Lisboa");
+		enderecoFulano.setNumero("Nº 148");
+		enderecoFulano.setComplemento(" APTº 302");
+		enderecoFulano.setBairro("Catete");
+		enderecoFulano.setCidade("Rio de Janeiro");
+		enderecoFulano.setEstado("Rio de Janeiro");
+
+		fulano.setEndereco(enderecoFulano);
+
+		Cliente sicrano = new Cliente();
+		sicrano.setNome("Sicrano de tal");
+		sicrano.setCpf("8901898989");
+		sicrano.setEmail("sicrano@gmail.com");
+		sicrano.setTelefone("6666666");
+		sicrano.setProfissao("Engenheiro Civil");
+
+		Endereco enderecoSicrano = new Endereco();
+		enderecoSicrano.setRua("Rua Jiquiba");
+		enderecoSicrano.setNumero("Nº 60");
+		enderecoSicrano.setComplemento(" APTº 102");
+		enderecoSicrano.setBairro("Maracanã");
+		enderecoSicrano.setCidade("Rio de Janeiro");
+		enderecoSicrano.setEstado("Rio de Janeiro");
+
+		sicrano.setEndereco(enderecoSicrano);
+
+		Cliente beltrano = new Cliente();
+		beltrano.setNome("Beltrano de tal");
+		beltrano.setCpf("12312413123");
+		beltrano.setEmail("beltrano@gmail.com");
+		beltrano.setTelefone("1111111");
+		beltrano.setProfissao("Arquiteto");
+
+		Endereco enderecoBeltrano = new Endereco();
+		enderecoBeltrano.setRua("Rua Tropowsky");
+		enderecoBeltrano.setNumero("Nº 900");
+		enderecoBeltrano.setComplemento(" APTº 801");
+		enderecoBeltrano.setBairro("Gutierrez");
+		enderecoBeltrano.setCidade("Belo Horizonte");
+		enderecoBeltrano.setEstado("Minas Gerais");
+
+		beltrano.setEndereco(enderecoBeltrano);
+
+		clienteRepository.save(fulano);
+		clienteRepository.save(sicrano);
+		clienteRepository.save(beltrano);
+
+		System.out.println("Salvo!!! ===================================================================");
+	}
+
+	private void deletar() {
+		System.out.println("Removendo o cliente ========================================================");
+
+		Long id = 1L;
+		clienteRepository.deleteById(id);
+
+		System.out.println("Deletado!!! ================================================================");
+	}
 
 	private void cadastraTresCategoriasAtivas() {
 		System.out.println("Cadastrando as categorias ========================================");
 
 		Categoria informatica = new Categoria();
-		informatica.setNome("CELULARES");
+		informatica.setNome("CELULARES 1");
 
 		Categoria moveis = new Categoria();
-		moveis.setNome("ELETRODOMÉSTICOS");
+		moveis.setNome("ELETRODOMÉSTICOS 1");
 
 		Categoria livros = new Categoria();
-		livros.setNome("ELETROPORTÁTEIS");
+		livros.setNome("ELETROPORTÁTEIS 1");
 		
 		Categoria beleza = new Categoria();
-		beleza.setNome("BELEZA E PERFURAMARIA");
+		beleza.setNome("BELEZA E PERFURAMARIA 1");
 
 		categoriaRepository.save(informatica);
 		categoriaRepository.save(moveis);
