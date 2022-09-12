@@ -2,6 +2,8 @@ package br.com.alura.comex.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ClienteForm> cadastrar(@RequestBody ClienteForm form) {
+	public ResponseEntity<ClienteForm> cadastrar(@RequestBody @Valid ClienteForm form) {
 		Cliente cliente = form.converter();
 		this.repositorio.save(cliente);
 		

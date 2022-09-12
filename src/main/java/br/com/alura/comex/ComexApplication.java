@@ -50,7 +50,7 @@ public class ComexApplication implements CommandLineRunner {
 		// iniciarContextoCliente();
 		//iniciarContextoCategoria();
 		//iniciarContextoProduto();
-		iniciarContextoPedido();
+		//iniciarContextoPedido();
 	}
 
 	private void iniciarContextoPedido() {

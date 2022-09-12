@@ -1,20 +1,59 @@
 package br.com.alura.comex.controller.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.alura.comex.modelo.Cliente;
 import br.com.alura.comex.modelo.Endereco;
 import br.com.alura.comex.modelo.Status;
 
 public class ClienteForm {
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 5)
 	private String nome;
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 11)
 	private String cpf;
+
+	@NotNull
+	@NotEmpty
+	@Length(min = 8)
 	private String telefone;
+
+	@NotNull
+	@NotEmpty
 	private String email;
+
+	@NotNull
+	@NotEmpty
 	private String profissao;
+
+	@NotNull
+	@NotEmpty
 	private String rua;
+
+	@NotNull
+	@NotEmpty
 	private String numero;
+
 	private String complemento;
+
+	@NotNull
+	@NotEmpty
 	private String bairro;
+
+	@NotNull
+	@NotEmpty
 	private String cidade;
+
+	@NotNull
+	@NotEmpty
 	private String estado;
 
 	public String getNome() {
@@ -113,7 +152,7 @@ public class ClienteForm {
 		endereco.setBairro(this.bairro);
 		endereco.setCidade(this.cidade);
 		endereco.setEstado(this.estado);
-		
-		return new Cliente(this.nome, this.cpf, this.telefone, this.email, this.profissao, endereco , Status.ATIVO);
+
+		return new Cliente(this.nome, this.cpf, this.telefone, this.email, this.profissao, endereco, Status.ATIVO);
 	}
 }
