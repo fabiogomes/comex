@@ -49,7 +49,7 @@ public class ComexApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//iniciarContextoCliente();
 		//iniciarContextoCategoria();
-		iniciarContextoProduto();
+		//iniciarContextoProduto();
 		//iniciarContextoPedido();
 	}
 
