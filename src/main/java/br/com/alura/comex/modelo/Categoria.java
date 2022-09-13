@@ -11,17 +11,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria implements Comparable<Categoria>{
-	
+public class Categoria implements Comparable<Categoria> {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(name = "nome", unique = true)
 	private String nome;
-	
+
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private StatusCategoria status = StatusCategoria.ATIVA;
-	
+
+	public Categoria() {
+	}
+
+	public Categoria(String nome) {
+		this.nome = nome;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -45,7 +54,7 @@ public class Categoria implements Comparable<Categoria>{
 	public void setStatus(StatusCategoria status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
