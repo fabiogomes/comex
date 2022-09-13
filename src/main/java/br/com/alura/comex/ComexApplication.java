@@ -47,7 +47,7 @@ public class ComexApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// iniciarContextoCliente();
+		//iniciarContextoCliente();
 		//iniciarContextoCategoria();
 		//iniciarContextoProduto();
 		//iniciarContextoPedido();
@@ -211,13 +211,13 @@ public class ComexApplication implements CommandLineRunner {
 	}
 
 	private void iniciarContextoCategoria() {
-		//cadastraTresCategoriasAtivas();
+		cadastraTresCategoriasAtivas();
 
-		//buscaTodasCategorias();
+		buscaTodasCategorias();
 
 		//alteraCategoriaParaInativa();
 
-		buscaTodasCategorias();
+		//buscaTodasCategorias();
 		
 		//listaTodasAsCategoriasAtivas();
 		
@@ -352,18 +352,18 @@ public class ComexApplication implements CommandLineRunner {
 		informatica.setNome("CELULARES");
 
 		Categoria moveis = new Categoria();
-		moveis.setNome("ELETRODOMÉSTICOS");
+		moveis.setNome("MOVÉIS");
 
 		Categoria livros = new Categoria();
-		livros.setNome("ELETROPORTÁTEIS");
+		livros.setNome("LIVROS");
 		
-		Categoria beleza = new Categoria();
-		beleza.setNome("BELEZA E PERFURAMARIA");
+		//Categoria beleza = new Categoria();
+		//beleza.setNome("BELEZA E PERFURAMARIA");
 
+		categoriaRepository.save(livros);
 		categoriaRepository.save(informatica);
 		categoriaRepository.save(moveis);
-		categoriaRepository.save(livros);
-		categoriaRepository.save(beleza);
+		//categoriaRepository.save(beleza);
 	}
 
 	private void alteraCategoriaParaInativa() {

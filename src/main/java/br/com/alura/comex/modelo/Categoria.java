@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria {
+public class Categoria implements Comparable<Categoria>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,5 +50,11 @@ public class Categoria {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "Categoria - [nome: " + this.nome + " | status: " + this.status + "]";
+	}
+
+	@Override
+	public int compareTo(Categoria categoria) {
+		// TODO Auto-generated method stub
+		return this.nome.compareTo(categoria.getNome());
 	}
 }
