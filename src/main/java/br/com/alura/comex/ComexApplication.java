@@ -49,7 +49,7 @@ public class ComexApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//iniciarContextoCliente();
 		//iniciarContextoCategoria();
-		//iniciarContextoProduto();
+		iniciarContextoProduto();
 		//iniciarContextoPedido();
 	}
 
@@ -153,11 +153,11 @@ public class ComexApplication implements CommandLineRunner {
 	}
 	
 	private void iniciarContextoProduto() {
-		// cadastraProdutos();
+		cadastraProdutos();
 		
-		buscaTodosOsProdutos();
+		//buscaTodosOsProdutos();
 		
-		buscaProdutosIndisponiveis();
+		//buscaProdutosIndisponiveis();
 	}
 
 	private void buscaProdutosIndisponiveis() {
@@ -191,6 +191,12 @@ public class ComexApplication implements CommandLineRunner {
 		teclado.setNome("Teclado");
 		teclado.setPrecoUnitario(new BigDecimal("79.00"));
 		teclado.setQuantidade(0);
+
+		Produto monitor = new Produto();
+		monitor.setCategoria(informatica);
+		monitor.setNome("Monitor");
+		monitor.setPrecoUnitario(new BigDecimal("1759.00"));
+		monitor.setQuantidade(40);
 		
 		Produto cleanCode = new Produto();
 		cleanCode.setCategoria(livro);
@@ -203,11 +209,26 @@ public class ComexApplication implements CommandLineRunner {
 		junitEmAcao.setNome("JUnit em ação");
 		junitEmAcao.setPrecoUnitario(new BigDecimal("69.00"));
 		junitEmAcao.setQuantidade(0);
+
+		Produto jpaPersistence = new Produto();
+		jpaPersistence.setCategoria(livro);
+		jpaPersistence.setNome("JPA Persistence com Hibernante");
+		jpaPersistence.setPrecoUnitario(new BigDecimal("99.00"));
+		jpaPersistence.setQuantidade(10);
+
+		Produto programadorPragmatico = new Produto();
+		programadorPragmatico.setCategoria(livro);
+		programadorPragmatico.setNome("Programador Pragmático");
+		programadorPragmatico.setPrecoUnitario(new BigDecimal("79.00"));
+		programadorPragmatico.setQuantidade(15);
 		
 		produtoRepository.save(mouse);
 		produtoRepository.save(teclado);
+		produtoRepository.save(monitor);
 		produtoRepository.save(cleanCode);
 		produtoRepository.save(junitEmAcao);
+		produtoRepository.save(jpaPersistence);
+		produtoRepository.save(programadorPragmatico);
 	}
 
 	private void iniciarContextoCategoria() {
