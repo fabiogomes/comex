@@ -11,10 +11,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria implements Comparable<Categoria> {
+public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true)
 	private Long id;
 
 	@Column(name = "nome", unique = true)
@@ -62,8 +63,17 @@ public class Categoria implements Comparable<Categoria> {
 	}
 
 	@Override
-	public int compareTo(Categoria categoria) {
-		// TODO Auto-generated method stub
-		return this.nome.compareTo(categoria.getNome());
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof Categoria))
+			return false;
+		Categoria categoria = (Categoria) o;
+		return (this.nome == null && categoria.nome == null) || (this.nome != null && this.nome.equals(categoria.nome));
+	}
+
+	@Override
+	public int hashCode() {
+		return this.nome.hashCode();
 	}
 }

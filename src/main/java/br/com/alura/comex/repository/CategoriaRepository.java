@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import br.com.alura.comex.modelo.Categoria;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 	@Query("SELECT c FROM Categoria c WHERE c.status='ATIVA'")
 	List<Categoria> buscaTodasAsCategoriasAtivas();

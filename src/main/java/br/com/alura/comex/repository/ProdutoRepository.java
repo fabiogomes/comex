@@ -12,4 +12,6 @@ import br.com.alura.comex.modelo.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	@Query("SELECT p FROM Produto p WHERE p.quantidade=0")
 	List<Produto> listaProdutosIndisponiveis();
+	
+	List<Produto> findByNome(String nome);
 }
