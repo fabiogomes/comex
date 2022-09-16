@@ -62,9 +62,8 @@ public class ProdutoController {
 		Produto produto = form.converter();
 		
 		Optional<Categoria> findById = categoriaRepositorio.findById(produto.getCategoria().getId());
-		List<Produto> findByNome = repositorio.findByNome(produto.getNome());
 
-		if (findById.isPresent() && findByNome.size() == 0) {
+		if (findById.isPresent()) {
 		    produto.setCategoria(findById.get());
 			this.repositorio.save(produto);
 			
@@ -72,6 +71,6 @@ public class ProdutoController {
 			return ResponseEntity.created(uri).body(new ProdutoDto(produto));
 		}
 
-		throw new DataIntegrityViolationException("nome duplicado na entidade Produto");
+		return ResponseEntity.notFound().build();
 	}
 }
