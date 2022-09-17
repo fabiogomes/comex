@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 
 @SpringBootApplication
+@EnableCaching
 public class ComexApplication implements CommandLineRunner {
 
 	private final ClienteRepository repository;

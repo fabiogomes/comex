@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +27,14 @@ public class ClienteController {
 	private ClienteRepository repositorio;
 
 	@GetMapping
+	@Cacheable(value = "listaTodosClientes")
 	public List<ClienteDto> lista() {
 		List<Cliente> lista = repositorio.findAll();
 		return ClienteDto.converter(lista);
 	}
 	
 	@PostMapping
+	@CacheEvict(value = "listaTodosClientes", allEntries = true)
 	public ResponseEntity<ClienteForm> cadastrar(@RequestBody @Valid ClienteForm form) {
 		Cliente cliente = form.converter();
 		this.repositorio.save(cliente);
