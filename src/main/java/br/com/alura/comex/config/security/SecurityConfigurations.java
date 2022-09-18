@@ -10,7 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations {
-
+	
+	// Configurações de autorização
 	@Bean
 	public SecurityFilterChain  filterChain(HttpSecurity http) throws Exception {
 		String[] recursos = new String[] { "/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**",
