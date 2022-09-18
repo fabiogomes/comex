@@ -26,9 +26,11 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableCaching
+@EnableSwagger2
 public class ComexApplication implements CommandLineRunner {
 
 	private final ClienteRepository repository;
