@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,11 +29,11 @@ public class ItemDePedido {
 	@ManyToOne
 	private Pedido pedido;
 
-	private BigDecimal desconto;
+	private BigDecimal desconto = BigDecimal.ZERO;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipoDeDesconto")
-	private TipoDeDescontoItem tipoDeDesconto;
+	private TipoDeDescontoItem tipoDeDesconto = TipoDeDescontoItem.NENHUM;
 
 	public Long getId() {
 		return id;
@@ -95,7 +94,13 @@ public class ItemDePedido {
 	}
 
 	public BigDecimal getValor() {
-		this.valor = this.precoUnitario.multiply(new BigDecimal(this.quantidade)); 
+		this.valor = this.precoUnitario.multiply(new BigDecimal(this.quantidade));
+		
+		if(this.tipoDeDesconto.equals(TipoDeDescontoItem.QUANTIDADE)) {
+			BigDecimal valorDesconto = this.valor.multiply(desconto);
+			this.valor = this.valor.subtract(valorDesconto );
+		}
+		
 		return this.valor;
 	}
 	

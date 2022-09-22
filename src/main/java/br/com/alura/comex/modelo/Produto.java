@@ -28,7 +28,7 @@ public class Produto {
 	private BigDecimal precoUnitario;
 	private Integer quantidade = 0;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id", referencedColumnName = "id")
 	private Categoria categoria;
 

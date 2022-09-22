@@ -1,6 +1,5 @@
 package br.com.alura.comex.config.security;
 
-import java.util.Base64;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;

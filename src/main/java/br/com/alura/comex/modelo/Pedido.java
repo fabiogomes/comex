@@ -26,13 +26,13 @@ public class Pedido {
 	private Long id;
 	private LocalDate data = LocalDate.now();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Cliente cliente;
 	
-	private BigDecimal desconto;
+	private BigDecimal desconto = BigDecimal.ZERO;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoDeDesconto tipoDeDesconto;
+	private TipoDeDesconto tipoDeDesconto = TipoDeDesconto.NENHUM;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemDePedido> itens = new ArrayList<>();
@@ -82,11 +82,11 @@ public class Pedido {
 	}
 
 	public BigDecimal getValorTotal() {
+		if(this.tipoDeDesconto.equals(TipoDeDesconto.FIDELIDADE)) {
+			BigDecimal valorDesconto = this.valorTotal.multiply(desconto);
+			this.valorTotal = this.valorTotal.subtract(valorDesconto);
+		}
 		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
 	}
 
 	public BigDecimal getDesconto() {
