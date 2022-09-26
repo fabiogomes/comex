@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -34,7 +36,8 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private TipoDeDesconto tipoDeDesconto = TipoDeDesconto.NENHUM;
 	
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private List<ItemDePedido> itens = new ArrayList<>();
 
 	private BigDecimal valorTotal = BigDecimal.ZERO;

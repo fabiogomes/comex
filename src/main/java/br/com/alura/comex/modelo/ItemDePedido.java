@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "itens_pedido")
 public class ItemDePedido {
@@ -27,6 +29,7 @@ public class ItemDePedido {
 	private Produto produto;
 
 	@ManyToOne
+	@JsonBackReference
 	private Pedido pedido;
 
 	private BigDecimal desconto = BigDecimal.ZERO;
