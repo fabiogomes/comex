@@ -15,6 +15,8 @@ public class ProdutoDto {
 	private String quantidadeEmEstoque;
 	private String idCategoria;
 
+	public ProdutoDto() {}
+	
 	public ProdutoDto(Produto produto) {
 		this.id = produto.getId().toString();
 		this.nome = produto.getNome();
@@ -73,6 +75,10 @@ public class ProdutoDto {
 	}
 
 	public static List<ProdutoDto> converter(Page<Produto> lista) {
+		return lista.stream().map(ProdutoDto::new).collect(Collectors.toList());
+	}
+
+	public static List<ProdutoDto> converter(List<Produto> lista) {
 		return lista.stream().map(ProdutoDto::new).collect(Collectors.toList());
 	}
 }

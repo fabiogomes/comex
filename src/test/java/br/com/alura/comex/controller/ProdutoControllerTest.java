@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,22 +19,27 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.alura.comex.controller.dto.CategoriaDto;
+import br.com.alura.comex.controller.dto.ProdutoDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class CategoriaControllerTest {
+class ProdutoControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
-	void deveriaCadastrarUmaNovaCategoriaEDevolver200() throws Exception {
-		URI uri = new URI("/api/categorias");
+	@Order(1)
+	void adeveriaCadastrarUmNovoProdutoEDevolver200() throws Exception {
+		URI uri = new URI("/api/produtos");
 		
 		String json = "{\r\n"
-				+ "    \"nome\":\"CELULARES1\"\r\n"
+				+ "    \"nome\":\"DDD13 - Desenvolvimento Orientando a Dominio\",\r\n"
+				+ "    \"descricao\":\"Dicas para melhorar o design da aplicação\",\r\n"
+				+ "    \"precoUnitario\":\"169.00\",\r\n"
+				+ "    \"quantidadeEmEstoque\":\"140\",\r\n"
+				+ "    \"categoriaId\":\"1\"\r\n"
 				+ "}";
 		
 		mockMvc
@@ -43,12 +49,13 @@ class CategoriaControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.is(200));
+				.is(201));
 	}
-
+	
 	@Test
-	public void deveriaRetornarTresCategoriasEDevolver200() throws Exception {
-		URI uri = new URI("/api/categorias");
+	@Order(2)
+	public void deveriaRetornarSeteProdutosEDevolver200() throws Exception {
+		URI uri = new URI("/api/produtos");
 
 		MvcResult resultado = mockMvc
 		.perform(MockMvcRequestBuilders
@@ -60,7 +67,7 @@ class CategoriaControllerTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// isso usa um TypeReference para informar API Jackson sobre o tipo genérico das listas
-		List<CategoriaDto> actual = mapper.readValue(resultado.getResponse().getContentAsString(), new TypeReference<List<CategoriaDto>>() {});
-		Assertions.assertEquals(4, actual.size());
+		List<ProdutoDto> actual = mapper.readValue(resultado.getResponse().getContentAsString(), new TypeReference<List<ProdutoDto>>() {});
+		Assertions.assertEquals(22, actual.size());
 	}
 }
