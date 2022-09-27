@@ -10,6 +10,8 @@ public class CategoriaDto {
 	private String nome;
 	private String status;
 	
+	public CategoriaDto() {}
+	
 	public CategoriaDto(Categoria categoria) {
 		this.id = categoria.getId().toString();
 		this.nome = categoria.getNome();
