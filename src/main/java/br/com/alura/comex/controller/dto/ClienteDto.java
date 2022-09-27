@@ -12,7 +12,9 @@ public class ClienteDto {
 	private String email;
 	private String local;
 	private String status;
-
+	
+	public ClienteDto() {}
+	
 	public ClienteDto(Cliente cliente) {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
