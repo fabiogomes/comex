@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.alura.comex.controller.dto.CategoriaDto;
 import br.com.alura.comex.controller.dto.PedidoDto;
 import br.com.alura.comex.controller.form.PedidoForm;
+import br.com.alura.comex.modelo.Categoria;
 import br.com.alura.comex.modelo.Cliente;
 import br.com.alura.comex.modelo.ItemDePedido;
 import br.com.alura.comex.modelo.Pedido;
@@ -100,6 +101,12 @@ public class PedidoController {
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping
+	public List<PedidoDto> lista() {
+		List<Pedido> lista = pedidoRepository.findAll();
+		return PedidoDto.converter(lista);
 	}
 	
 	@GetMapping("/{id}")

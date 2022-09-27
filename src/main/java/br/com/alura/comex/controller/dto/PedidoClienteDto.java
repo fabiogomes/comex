@@ -6,6 +6,8 @@ public class PedidoClienteDto {
 	private Long id;
 	private String nome;
 
+	public PedidoClienteDto() {}
+	
 	public PedidoClienteDto(Cliente cliente) {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();

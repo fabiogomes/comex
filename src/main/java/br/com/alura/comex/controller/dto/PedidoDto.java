@@ -3,6 +3,7 @@ package br.com.alura.comex.controller.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.alura.comex.modelo.ItemDePedido;
 import br.com.alura.comex.modelo.Pedido;
@@ -11,8 +12,10 @@ public class PedidoDto {
 	private LocalDate dataDoPedido;
 	private BigDecimal desconto;
 	private BigDecimal valor;
+	
 	private PedidoClienteDto cliente;
 	
+	//@JsonManagedReference
 	private List<ItemDePedido> itens;
 
 	public PedidoDto() {
@@ -64,5 +67,9 @@ public class PedidoDto {
 
 	public void setCliente(PedidoClienteDto cliente) {
 		this.cliente = cliente;
+	}
+
+	public static List<PedidoDto> converter(List<Pedido> lista) {
+		return lista.stream().map(PedidoDto::new).collect(Collectors.toList());
 	}
 }
