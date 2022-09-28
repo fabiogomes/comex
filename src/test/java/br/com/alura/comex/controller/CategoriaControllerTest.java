@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -22,7 +23,8 @@ import br.com.alura.comex.controller.dto.CategoriaDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles(value = {"test", "testes"})
 class CategoriaControllerTest {
 
 	@Autowired
@@ -33,7 +35,7 @@ class CategoriaControllerTest {
 		URI uri = new URI("/api/categorias");
 		
 		String json = "{\r\n"
-				+ "    \"nome\":\"CELULARES1\"\r\n"
+				+ "    \"nome\":\"CELULARES - xx\"\r\n"
 				+ "}";
 		
 		mockMvc
@@ -61,6 +63,6 @@ class CategoriaControllerTest {
 
 		// isso usa um TypeReference para informar API Jackson sobre o tipo genérico das listas
 		List<CategoriaDto> actual = mapper.readValue(resultado.getResponse().getContentAsString(), new TypeReference<List<CategoriaDto>>() {});
-		Assertions.assertEquals(4, actual.size());
+		Assertions.assertEquals(1, actual.size());
 	}
 }

@@ -4,8 +4,10 @@ import java.net.URI;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +26,7 @@ import br.com.alura.comex.controller.dto.ProdutoDto;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProdutoControllerTest {
 
 	@Autowired
@@ -31,7 +34,7 @@ class ProdutoControllerTest {
 
 	@Test
 	@Order(1)
-	void adeveriaCadastrarUmNovoProdutoEDevolver200() throws Exception {
+	void deveriaCadastrarUmNovoProdutoEDevolver200() throws Exception {
 		URI uri = new URI("/api/produtos");
 		
 		String json = "{\r\n"
@@ -68,6 +71,6 @@ class ProdutoControllerTest {
 
 		// isso usa um TypeReference para informar API Jackson sobre o tipo genérico das listas
 		List<ProdutoDto> actual = mapper.readValue(resultado.getResponse().getContentAsString(), new TypeReference<List<ProdutoDto>>() {});
-		Assertions.assertEquals(22, actual.size());
+		Assertions.assertEquals(1, actual.size());
 	}
 }

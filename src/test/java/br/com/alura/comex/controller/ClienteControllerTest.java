@@ -4,7 +4,10 @@ import java.net.URI;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,12 +26,14 @@ import br.com.alura.comex.controller.dto.ClienteDto;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ClienteControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
+	@Order(1)
 	void deveriaCadastrarUmNovoClienteEDevolver200() throws Exception {
 		URI uri = new URI("/api/clientes");
 		
@@ -57,6 +62,7 @@ class ClienteControllerTest {
 	}
 
 	@Test
+	@Order(2)
 	public void deveriaRetornarCincoClientesEDevolver200() throws Exception {
 		URI uri = new URI("/api/clientes");
 
@@ -71,6 +77,6 @@ class ClienteControllerTest {
 
 		// isso usa um TypeReference para informar API Jackson sobre o tipo genérico das listas
 		List<ClienteDto> actual = mapper.readValue(resultado.getResponse().getContentAsString(), new TypeReference<List<ClienteDto>>() {});
-		Assertions.assertEquals(5, actual.size());
+		Assertions.assertEquals(1, actual.size());
 	}
 }
